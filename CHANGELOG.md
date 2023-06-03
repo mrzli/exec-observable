@@ -4,6 +4,12 @@ All notable changes to the "exec-observable" will be documented in this file.
 
 ## [Unreleased]
 
+## [0.0.2] - 2023-06-03
+
+### Changed
+
+- Add some options to `fromExec` function.
+
 ## [0.0.1] - 2023-06-03
 
 ### Added

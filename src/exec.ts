@@ -1,4 +1,4 @@
-import { spawn } from 'node:child_process';
+import { spawn, SpawnOptions } from 'node:child_process';
 import { Observable } from 'rxjs';
 import { ExecEventAny, ExecOptions } from './types';
 import { ENCODING_UTF8 } from '@gmjs/fs-shared';
@@ -6,14 +6,23 @@ import { ENCODING_UTF8 } from '@gmjs/fs-shared';
 export function fromExec(
   command: string,
   args?: readonly string[],
-  _options?: ExecOptions
+  options?: ExecOptions
 ): Observable<ExecEventAny> {
   return new Observable<ExecEventAny>((subscriber) => {
-    const childProcess = spawn(command, args);
-    childProcess.stdout.on('data', (data) => {
+    const { cwd, env, shell, timeout } = options ?? {};
+
+    const finalOptions: SpawnOptions = {
+      cwd,
+      env,
+      shell,
+      timeout,
+    };
+
+    const childProcess = spawn(command, args ?? [], finalOptions);
+    childProcess.stdout?.on('data', (data) => {
       subscriber.next({ kind: 'data-stdout', data: bufferToString(data) });
     });
-    childProcess.stderr.on('data', (data) => {
+    childProcess.stderr?.on('data', (data) => {
       subscriber.next({ kind: 'data-stderr', data: bufferToString(data) });
     });
     childProcess.on('error', (error) => {

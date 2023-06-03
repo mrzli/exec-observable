@@ -1,2 +1,6 @@
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface ExecOptions {}
+export interface ExecOptions {
+  readonly cwd?: string;
+  readonly env?: NodeJS.ProcessEnv;
+  readonly shell?: string | boolean;
+  readonly timeout?: number;
+}
