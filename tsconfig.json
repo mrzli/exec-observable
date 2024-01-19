@@ -1,7 +1,12 @@
 {
   "extends": "@gmjs/tsconfig",
+  "include": ["src/**/*.ts"],
   "compilerOptions": {
-    "outDir": "./dist"
+    "rootDir": ".",
+    "outDir": "./dist",
+    "module": "CommonJS",
+    "moduleResolution": "Node",
+    "lib": ["ES2023"],
+    "target": "ES2022",
   },
-  "include": ["jest.config.ts", "src/**/*.ts"]
 }

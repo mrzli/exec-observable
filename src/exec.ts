@@ -6,7 +6,7 @@ import { ENCODING_UTF8 } from '@gmjs/fs-shared';
 export function fromExec(
   command: string,
   args?: readonly string[],
-  options?: ExecOptions
+  options?: ExecOptions,
 ): Observable<ExecEventAny> {
   return new Observable<ExecEventAny>((subscriber) => {
     const { cwd, env, shell, timeout } = options ?? {};
